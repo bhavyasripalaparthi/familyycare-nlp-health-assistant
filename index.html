@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FamilyCare | AI Health Emergency & Savings Assistant</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f8fb;
+    color:#243447;
+}
+
+button,input,select,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* LANDING */
+.landing{
+    min-height:100vh;
+    background:linear-gradient(135deg,#e8f8ff,#f7ffff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+}
+
+.landing-box{
+    max-width:1100px;
+    width:100%;
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:40px;
+    align-items:center;
+}
+
+.brand-large{
+    font-size:52px;
+    font-weight:800;
+    color:#087f8c;
+}
+
+.brand-large span{
+    color:#1479b8;
+}
+
+.tagline{
+    font-size:24px;
+    margin:15px 0;
+}
+
+.landing-text p{
+    line-height:1.7;
+    color:#667;
+    max-width:600px;
+}
+
+.landing-buttons{
+    margin-top:30px;
+    display:flex;
+    gap:15px;
+}
+
+.primary-btn,.secondary-btn{
+    padding:13px 24px;
+    border:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.primary-btn{
+    background:#087f8c;
+    color:white;
+}
+
+.secondary-btn{
+    background:white;
+    color:#087f8c;
+    border:1px solid #087f8c;
+}
+
+.hero-card{
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 15px 40px #00000012;
+    text-align:center;
+}
+
+.hero-icon{
+    font-size:80px;
+    margin-bottom:20px;
+}
+
+/* AUTH */
+.auth-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:#edf8fb;
+}
+
+.auth-box{
+    width:420px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 10px 35px #0002;
+}
+
+.logo{
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+    color:#087f8c;
+    margin-bottom:25px;
+}
+
+.auth-box h2{
+    margin-bottom:20px;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d5e1e7;
+    border-radius:10px;
+    outline:none;
+}
+
+.form-group textarea{
+    resize:vertical;
+}
+
+.auth-box .primary-btn{
+    width:100%;
+    margin-top:8px;
+}
+
+.auth-link{
+    text-align:center;
+    margin-top:18px;
+    color:#087f8c;
+    cursor:pointer;
+}
+
+.message{
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:15px;
+    display:none;
+}
+
+/* APP */
+.app{
+    min-height:100vh;
+}
+
+.sidebar{
+    position:fixed;
+    width:250px;
+    height:100vh;
+    background:#073b4c;
+    color:white;
+    padding:25px 15px;
+    z-index:10;
+}
+
+.sidebar-logo{
+    font-size:24px;
+    font-weight:bold;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.nav-item{
+    padding:13px 15px;
+    border-radius:10px;
+    margin:5px 0;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.nav-item:hover,.nav-item.active{
+    background:#087f8c;
+}
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+}
+
+.topbar{
+    background:white;
+    padding:18px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 10px #00000008;
+    position:sticky;
+    top:0;
+    z-index:5;
+}
+
+.user-menu{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    background:#dff6f7;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.content{
+    padding:30px;
+}
+
+.page-title{
+    margin-bottom:25px;
+}
+
+.page-title h1{
+    font-size:30px;
+}
+
+.page-title p{
+    color:#71808c;
+    margin-top:5px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 5px 20px #0000000d;
+}
+
+.stat-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.stat-icon{
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    background:#e8f8fa;
+}
+
+.stat-value{
+    font-size:25px;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:20px;
+}
+
+.card h3{
+    margin-bottom:15px;
+}
+
+.fund-amount{
+    font-size:38px;
+    color:#087f8c;
+    font-weight:bold;
+}
+
+.progress{
+    height:10px;
+    background:#e7eef1;
+    border-radius:10px;
+    margin:15px 0;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:60%;
+    height:100%;
+    background:#087f8c;
+}
+
+.small-text{
+    color:#73818a;
+    font-size:14px;
+}
+
+/* FAMILY */
+.member-grid,.hospital-grid,.doctor-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.member-card{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 5px 20px #0001;
+}
+
+.member-avatar{
+    width:55px;
+    height:55px;
+    background:#e5f6fa;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    margin-bottom:15px;
+}
+
+.action-row{
+    display:flex;
+    gap:8px;
+    margin-top:15px;
+}
+
+.small-btn{
+    border:none;
+    padding:8px 13px;
+    border-radius:8px;
+    background:#edf5f7;
+}
+
+.delete-btn{
+    background:#ffe9e9;
+    color:#c0392b;
+}
+
+/* NLP */
+.nlp-box{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 5px 20px #0001;
+}
+
+.nlp-box textarea{
+    width:100%;
+    min-height:130px;
+    border:1px solid #d5e1e7;
+    border-radius:12px;
+    padding:15px;
+    margin:10px 0 15px;
+}
+
+.pipeline{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    overflow-x:auto;
+    margin:20px 0;
+}
+
+.pipeline-step{
+    background:#e9f8fa;
+    padding:12px 15px;
+    border-radius:10px;
+    white-space:nowrap;
+    font-size:13px;
+}
+
+.result-box{
+    margin-top:20px;
+    background:#f7fbfc;
+    padding:20px;
+    border-radius:14px;
+    display:none;
+}
+
+.tag{
+    display:inline-block;
+    padding:7px 10px;
+    background:#dff5f5;
+    color:#087f8c;
+    border-radius:20px;
+    margin:4px;
+    font-size:13px;
+}
+
+/* HOSPITAL */
+.hospital-image,.doctor-image{
+    height:130px;
+    background:linear-gradient(135deg,#dff6fa,#eef9fb);
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.hospital-card h3,.doctor-card h3{
+    margin-bottom:8px;
+}
+
+.info{
+    color:#667;
+    font-size:14px;
+    margin:7px 0;
+}
+
+.rating{
+    color:#e49b19;
+}
+
+.full-btn{
+    width:100%;
+    margin-top:10px;
+}
+
+/* EMERGENCY */
+.emergency{
+    background:#fff1f1;
+    border:1px solid #ffd2d2;
+    padding:25px;
+    border-radius:16px;
+}
+
+.emergency h2{
+    color:#c0392b;
+    margin-bottom:10px;
+}
+
+.emergency-icon{
+    font-size:45px;
+}
+
+/* TABLE */
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:13px;
+    text-align:left;
+    border-bottom:1px solid #e8eef1;
+}
+
+th{
+    background:#f5fafb;
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:#0007;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+}
+
+.modal-content{
+    background:white;
+    width:500px;
+    max-width:100%;
+    max-height:90vh;
+    overflow:auto;
+    padding:25px;
+    border-radius:18px;
+}
+
+.close{
+    float:right;
+    font-size:25px;
+    cursor:pointer;
+}
+
+/* RESPONSIVE */
+.mobile-menu{
+    display:none;
+    font-size:25px;
+    cursor:pointer;
+}
+
+@media(max-width:1000px){
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .member-grid,.hospital-grid,.doctor-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid-2{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:700px){
+    .landing-box{
+        grid-template-columns:1fr;
+    }
+
+    .brand-large{
+        font-size:38px;
+    }
+
+    .hero-card{
+        display:none;
+    }
+
+    .sidebar{
+        left:-260px;
+        transition:.3s;
+    }
+
+    .sidebar.open{
+        left:0;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .content{
+        padding:18px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .member-grid,.hospital-grid,.doctor-grid{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        padding:15px;
+    }
+
+    .landing-buttons{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LANDING -->
+<section id="landingPage" class="landing">
+    <div class="landing-box">
+        <div class="landing-text">
+            <div class="brand-large">Family<span>Care</span> 🩺</div>
+            <div class="tagline">Be prepared for health emergencies.</div>
+            <p>
+                An AI-powered family health emergency and savings assistant
+                prototype designed for a college NLP project.
+            </p>
+
+            <div class="landing-buttons">
+                <button class="primary-btn" onclick="showLogin()">Login</button>
+                <button class="secondary-btn" onclick="showRegister()">Register</button>
+            </div>
+        </div>
+
+        <div class="hero-card">
+            <div class="hero-icon">👨‍👩‍👧‍👦</div>
+            <h2>Family Health, Simplified</h2>
+            <p class="small-text">
+                Manage family information, health emergency savings,
+                symptom analysis and appointments in one place.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- LOGIN -->
+<section id="loginPage" class="auth-page hidden">
+    <div class="auth-box">
+        <div class="logo">FamilyCare 🩺</div>
+        <h2>Welcome Back</h2>
+        <div id="loginMessage" class="message"></div>
+
+        <div class="form-group">
+            <label>Email / Mobile Number</label>
+            <input id="loginEmail" type="text" placeholder="Enter email or mobile">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input id="loginPassword" type="password" placeholder="Enter password">
+        </div>
+
+        <label>
+            <input type="checkbox" id="rememberMe"> Remember Me
+        </label>
+
+        <button class="primary-btn" onclick="login()">Login</button>
+
+        <div class="auth-link" onclick="forgotPassword()">Forgot Password?</div>
+        <div class="auth-link" onclick="showRegister()">Create Account</div>
+        <div class="auth-link" onclick="showLanding()">← Back</div>
+    </div>
+</section>
+
+
+<!-- REGISTER -->
+<section id="registerPage" class="auth-page hidden">
+    <div class="auth-box">
+        <div class="logo">FamilyCare 🩺</div>
+        <h2>Create Account</h2>
+        <div id="registerMessage" class="message"></div>
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input id="regName" type="text" placeholder="Enter full name">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input id="regEmail" type="email" placeholder="Enter email">
+        </div>
+
+        <div class="form-group">
+            <label>Mobile Number</label>
+            <input id="regMobile" type="tel" placeholder="Enter mobile number">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input id="regPassword" type="password" placeholder="Create password">
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input id="regConfirm" type="password" placeholder="Confirm password">
+        </div>
+
+        <button class="primary-btn" onclick="register()">Create Account</button>
+
+        <div class="auth-link" onclick="showLogin()">Already have an account? Login</div>
+    </div>
+</section>
+
+
+<!-- APPLICATION -->
+<section id="appPage" class="app hidden">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-logo">FamilyCare 🩺</div>
+
+        <div class="nav-item active" onclick="navigate('dashboard')">🏠 Dashboard</div>
+        <div class="nav-item" onclick="navigate('family')">👨‍👩‍👧 Family</div>
+        <div class="nav-item" onclick="navigate('fund')">💰 Health Fund</div>
+        <div class="nav-item" onclick="navigate('assistant')">🤖 AI Health Assistant</div>
+        <div class="nav-item" onclick="navigate('hospitals')">🏥 Hospitals</div>
+        <div class="nav-item" onclick="navigate('doctors')">👨‍⚕️ Doctors</div>
+        <div class="nav-item" onclick="navigate('appointments')">📅 Appointments</div>
+        <div class="nav-item" onclick="navigate('emergency')">🚨 Emergency</div>
+        <div class="nav-item" onclick="navigate('profile')">👤 Profile</div>
+        <div class="nav-item" onclick="logout()">🚪 Logout</div>
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+            <div class="mobile-menu" onclick="toggleSidebar()">☰</div>
+            <div>
+                <strong id="topTitle">Dashboard</strong>
+            </div>
+
+            <div class="user-menu">
+                <div class="avatar">👤</div>
+                <span id="topUserName">User</span>
+            </div>
+        </header>
+
+
+        <div class="content">
+
+            <!-- DASHBOARD -->
+            <div id="dashboardPage" class="page">
+
+                <div class="page-title">
+                    <h1>Welcome, <span id="welcomeName">User</span> 👋</h1>
+                    <p>Your family health overview</p>
+                </div>
+
+                <div class="cards">
+
+                    <div class="card stat-card">
+                        <div class="stat-icon">👨‍👩‍👧</div>
+                        <div>
+                            <div class="small-text">Family Members</div>
+                            <div class="stat-value" id="familyCount">3</div>
+                        </div>
+                    </div>
+
+                    <div class="card stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div>
+                            <div class="small-text">Emergency Fund</div>
+                            <div class="stat-value">₹<span id="fundValue">12,500</span></div>
+                        </div>
+                    </div>
+
+                    <div class="card stat-card">
+                        <div class="stat-icon">🏥</div>
+                        <div>
+                            <div class="small-text">Nearby Hospitals</div>
+                            <div class="stat-value">6</div>
+                        </div>
+                    </div>
+
+                    <div class="card stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div>
+                            <div class="small-text">Appointments</div>
+                            <div class="stat-value" id="appointmentCount">0</div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="grid-2">
+
+                    <div class="card">
+                        <h3>💰 Health Emergency Fund</h3>
+
+                        <div class="fund-amount">₹<span id="dashFund">12,500</span></div>
+
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+
+                        <p class="small-text">
+                            This Month's Saving: <strong>₹500</strong>
+                        </p>
+
+                        <p class="small-text">
+                            Suggested Saving: <strong>1% of Salary</strong>
+                        </p>
+
+                        <button class="primary-btn" style="margin-top:15px"
+                                onclick="openFundModal()">
+                            Add Money
+                        </button>
+                    </div>
+
+
+                    <div class="card">
+                        <h3>🚨 Emergency Help</h3>
+
+                        <p class="small-text">
+                            If symptoms are severe or life-threatening,
+                            contact local emergency services or visit the
+                            nearest emergency department immediately.
+                        </p>
+
+                        <button class="primary-btn"
+                                style="margin-top:18px"
+                                onclick="navigate('emergency')">
+                            Emergency Help
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FAMILY -->
+            <div id="familyPage" class="page hidden">
+
+                <div class="page-title">
+                    <h1>👨‍👩‍👧 Family Members</h1>
+                    <p>Manage your family health information</p>
+                </div>
+
+                <button class="primary-btn" onclick="openMemberModal()">
+                    + Add Member
+                </button>
+
+                <div id="memberGrid" class="member-grid" style="margin-top:20px"></div>
+
+            </div>
+
+
+            <!-- FUND -->
+            <div id="fundPage" class="page hidden">
+
+                <div class="page-title">
+                    <h1>💰 Health Emergency Fund</h1>
+                    <p>Manage your family's emergency savings</p>
+                </div>
+
+                <div class="card">
+                    <h3>Current Fund</h3>
+                    <div class="fund-amount">
+                        ₹<span id="fundPageValue">12,500</span>
+                    </div>
+
+                    <p class="small-text">
+                        This Month's Saving: ₹500
+                    </p>
+
+                    <p class="small-text">
+                        Suggested Saving: 1% of Salary
+                    </p>
+
+                    <button class="primary-btn"
+                            style="margin-top:15px"
+                            onclick="openFundModal()">
+                        + Add Money
+                    </button>
+                </div>
+
+                <div class="card" style="margin-top:20px">
+                    <h3>Transaction History</h3>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Payment Method</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- NLP ASSISTANT -->
+            <div id="assistantPage" class="page hidden">
+
+                <div class="page-title">
+                    <h1>🤖 AI Health Assistant</h1>
+                    <p>Describe your symptoms in your own words</p>
+                </div>
+
+                <div class="nlp-box">
+
+                    <label><strong>Describe your symptoms</strong></label>
+
+                    <textarea id="symptomInput"
+                        placeholder="Example: I have fever, headache and body pain for two days..."></textarea>
+
+                    <button class="primary-btn" onclick="analyzeSymptoms()">
+                        🔍 Analyze Symptoms
+                    </button>
+
+                    <div class="pipeline">
+                        <div class="pipeline-step">User Input</div>
+                        →
+                        <div class="pipeline-step">Text Preprocessing</div>
+                        →
+                        <div class="pipeline-step">Symptom Extraction</div>
+                        →
+                        <div class="pipeline-step">Condition Identification</div>
+                        →
+                        <div class="pipeline-step">Specialist</div>
+                        →
+                        <div class="pipeline-step">Hospital Search</div>
+                    </div>
+
+                    <div id="nlpResult" class="result-box">
+
+                        <h3>Detected Symptoms</h3>
+                        <div id="symptoms"></div>
+
+                        <h3 style="margin-top:20px">
+                            Possible Conditions
+                        </h3>
+
+                        <ul id="conditions"
+                            style="padding-left:20px;line-height:1.8">
+                        </ul>
+
+                        <div style="background:#fff5d9;padding:15px;border-radius:10px;margin-top:15px">
+                            ⚠️ <strong>Important:</strong>
+                            This is an AI-based preliminary suggestion,
+                            NOT a medical diagnosis.
+                        </div>
+
+                        <h3 style="margin-top:20px">
+                            Recommended Specialist
+                        </h3>
+
+                        <p id="specialist"
+                           style="font-size:20px;font-weight:bold;color:#087f8c">
+                        </p>
+
+                        <button class="primary-btn"
+                                style="margin-top:15px"
+                                onclick="navigate('hospitals')">
+                            Find Hospitals
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card" style="margin-top:20px">
+                    <h3>How NLP Works in FamilyCare</h3>
+
+                    <p class="small-text" style="line-height:1.8">
+                        <strong>1. User Input:</strong>
+                        User describes symptoms using natural language.
+                        <br><br>
+
+                        <strong>2. Text Preprocessing:</strong>
+                        The system cleans and normalizes the entered text.
+                        <br><br>
+
+                        <strong>3. Symptom Extraction:</strong>
+                        Important health-related words are identified.
+                        <br><br>
+
+                        <strong>4. Possible Condition Identification:</strong>
+                        The extracted symptoms are matched with demo
+                        condition patterns.
+                        <br><br>
+
+                        <strong>5. Specialist Recommendation:</strong>
+                        A suitable medical specialty is suggested.
+                        <br><br>
+
+                        <strong>6. Hospital Search:</strong>
+                        The user can explore demo hospitals and doctors.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- HOSPITALS -->
+            <div id="hospitalsPage" class="page hidden">
+
+                <div class="page-title">
+                    <h1>🏥 Hospitals</h1>
+                    <p>Nearby hospitals – demo data</p>
+                </div>
+
+                <div id="hospitalGrid" class="hospital-grid"></div>
+
+            </div>
+
+
+            <!-- DOCTORS -->
+            <div id="doctorsPage" class="page hidden">
+
+                <div class="page-title">
+                    <h1>👨‍⚕️ Doctors</h1>
+                    <p>Doctor information – demo data</p>
+                </div>
+
+                <div id="doctorGrid" class="doctor-grid"></div>
+
+            </div>
+
+
+            <!-- APPOINTMENTS -->
+            <div id="appointmentsPage" class="page hidden">
+
+                <div class="page-title">
+                    <h1>📅 Appointments</h1>
+                    <p>Your appointment history</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openAppointmentModal()">
+                    + Book Appointment
+                </button>
+
+                <div class="card" style="margin-top:20px">
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Doctor</th>
+                                    <th>Hospital</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>ID</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="appointmentTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- EMERGENCY -->
+            <div id="emergencyPage" class="page hidden">
+
+                <div class="page-title">
+                    <h1>🚨 Emergency Help</h1>
+                </div>
+
+                <div class="emergency">
+
+                    <div class="emergency-icon">🚨</div>
+
+                    <h2>Health Emergency Warning</h2>
+
+                    <p style="line-height:1.8">
+                        If symptoms are severe or life-threatening,
+                        contact local emergency services or visit the
+                        nearest emergency department immediately.
+                    </p>
+
+                    <div class="action-row">
+                        <a href="tel:9876543210">
+                            <button class="primary-btn">
+                                📞 Call Hospital
+                            </button>
+                        </a>
+
+                        <button class="secondary-btn"
+                                onclick="navigate('hospitals')">
+                            🏥 Find Nearby Hospital
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="card" style="margin-top:20px">
+                    <h3>Nearby Emergency Hospitals</h3>
+                    <p class="small-text">
+                        Locations shown here are demo/mock locations
+                        for college project demonstration.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- PROFILE -->
+            <div id="profilePage" class="page hidden">
+
+                <div class="page-title">
+                    <h1>👤 Profile</h1>
+                </div>
+
+                <div class="card">
+
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input id="profileName">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input id="profileEmail">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mobile Number</label>
+                        <input id="profileMobile">
+                    </div>
+
+                    <button class="primary-btn"
+                            onclick="saveProfile()">
+                        Save Profile
+                    </button>
+
+                    <button class="secondary-btn"
+                            style="margin-left:10px"
+                            onclick="logout()">
+                        Logout
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+</section>
+
+
+<!-- MEMBER MODAL -->
+<div id="memberModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeModal('memberModal')">×</span>
+
+        <h2 id="memberModalTitle">Add Family Member</h2>
+
+        <input type="hidden" id="editMemberIndex">
+
+        <div class="form-group">
+            <label>Name</label>
+            <input id="memberName" placeholder="Enter name">
+        </div>
+
+        <div class="form-group">
+            <label>Relationship</label>
+            <input id="memberRelation" placeholder="Father / Mother / Brother">
+        </div>
+
+        <div class="form-group">
+            <label>Age</label>
+            <input id="memberAge" type="number">
+        </div>
+
+        <div class="form-group">
+            <label>Employment Status</label>
+            <select id="memberEmployment">
+                <option>Government</option>
+                <option>Private</option>
+                <option>Not employed</option>
+            </select>
+        </div>
+
+        <button class="primary-btn" onclick="saveMember()">
+            Save Member
+        </button>
+
+    </div>
+</div>
+
+
+<!-- FUND MODAL -->
+<div id="fundModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeModal('fundModal')">×</span>
+
+        <h2>Add to Health Fund</h2>
+
+        <div style="background:#fff5d9;padding:12px;border-radius:10px;margin:15px 0">
+            ℹ️ Demo contribution only. No real bank/UPI payment is processed.
+        </div>
+
+        <div class="form-group">
+            <label>Amount</label>
+            <input id="fundAmount" type="number" placeholder="Enter amount">
+        </div>
+
+        <div class="form-group">
+            <label>Payment Method</label>
+            <select id="paymentMethod">
+                <option>Manual Contribution</option>
+                <option>UPI (Demo)</option>
+                <option>Cash (Demo)</option>
+                <option>Card (Demo)</option>
+            </select>
+        </div>
+
+        <button class="primary-btn" onclick="addFund()">
+            Add to Health Fund
+        </button>
+
+    </div>
+</div>
+
+
+<!-- APPOINTMENT MODAL -->
+<div id="appointmentModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeModal('appointmentModal')">×</span>
+
+        <h2>Book Appointment</h2>
+
+        <div style="background:#fff5d9;padding:12px;border-radius:10px;margin:15px 0">
+            Demo appointment booking – no real hospital integration.
+        </div>
+
+        <div class="form-group">
+            <label>Hospital</label>
+            <select id="appointmentHospital">
+                <option>ABC Multispeciality Hospital</option>
+                <option>CityCare Hospital</option>
+                <option>Family Health Hospital</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Department</label>
+            <select>
+                <option>General Medicine</option>
+                <option>Cardiology</option>
+                <option>Paediatrics</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Doctor</label>
+            <select id="appointmentDoctor">
+                <option>Dr. Ananya Rao</option>
+                <option>Dr. Rahul Sharma</option>
+                <option>Dr. Priya Nair</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Date</label>
+            <input id="appointmentDate" type="date">
+        </div>
+
+        <div class="form-group">
+            <label>Time</label>
+            <select id="appointmentTime">
+                <option>10:00 AM</option>
+                <option>11:30 AM</option>
+                <option>02:00 PM</option>
+                <option>05:00 PM</option>
+            </select>
+        </div>
+
+        <button class="primary-btn"
+                onclick="confirmAppointment()">
+            Confirm Appointment
+        </button>
+
+    </div>
+</div>
+
+
+<!-- HOSPITAL DETAILS MODAL -->
+<div id="hospitalModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeModal('hospitalModal')">×</span>
+
+        <div id="hospitalDetails"></div>
+
+    </div>
+</div>
+
+
+<script>
+
+/* =========================
+   DEMO DATA
+========================= */
+
+const hospitals = [
+    {
+        name:"ABC Multispeciality Hospital",
+        distance:"4.2 km",
+        location:"Main Road, City Center",
+        department:"General Medicine",
+        phone:"9876543210",
+        rating:"4.5",
+        doctors:"Dr. Ananya Rao, Dr. Rahul Sharma"
+    },
+    {
+        name:"CityCare Hospital",
+        distance:"5.8 km",
+        location:"Central Avenue",
+        department:"General Medicine, Cardiology",
+        phone:"9876543211",
+        rating:"4.3",
+        doctors:"Dr. Priya Nair"
+    },
+    {
+        name:"Family Health Hospital",
+        distance:"7.1 km",
+        location:"Green Park",
+        department:"General Medicine, Paediatrics",
+        phone:"9876543212",
+        rating:"4.4",
+        doctors:"Dr. Ananya Rao"
+    }
+];
+
+const doctors = [
+    {
+        name:"Dr. Ananya Rao",
+        specialization:"General Physician",
+        experience:"8 Years",
+        hospital:"ABC Multispeciality Hospital",
+        fee:"₹500 (Demo)",
+        days:"Monday - Saturday",
+        slots:"10:00 AM - 1:00 PM",
+        qualification:"MBBS, MD (Demo)",
+        about:"Experienced general medicine specialist. Information shown is demo data."
+    },
+    {
+        name:"Dr. Rahul Sharma",
+        specialization:"General Physician",
+        experience:"10 Years",
+        hospital:"ABC Multispeciality Hospital",
+        fee:"₹600 (Demo)",
+        days:"Monday - Friday",
+        slots:"2:00 PM - 5:00 PM",
+        qualification:"MBBS, MD (Demo)",
+        about:"Doctor profile shown for educational demonstration only."
+    },
+    {
+        name:"Dr. Priya Nair",
+        specialization:"Cardiologist",
+        experience:"12 Years",
+        hospital:"CityCare Hospital",
+        fee:"₹800 (Demo)",
+        days:"Tuesday - Saturday",
+        slots:"10:00 AM - 1:00 PM",
+        qualification:"MBBS, MD, DM (Demo)",
+        about:"Specialist information is mock data for this college project."
+    }
+];
+
+
+/* =========================
+   STORAGE
+========================= */
+
+let user = JSON.parse(localStorage.getItem("familycareUser")) || null;
+
+let familyMembers =
+    JSON.parse(localStorage.getItem("familycareMembers")) || [
+        {
+            name:"Bhavi",
+            relation:"Self",
+            age:20,
+            employment:"Not employed"
+        },
+        {
+            name:"Jagan",
+            relation:"Father",
+            age:48,
+            employment:"Private"
+        },
+        {
+            name:"Mother",
+            relation:"Mother",
+            age:43,
+            employment:"Not employed"
+        }
+    ];
+
+let fund =
+    Number(localStorage.getItem("familycareFund")) || 12500;
+
+let transactions =
+    JSON.parse(localStorage.getItem("familycareTransactions")) || [
+        {
+            date:"Today",
+            amount:500,
+            method:"Manual Contribution",
+            status:"Successful"
+        }
+    ];
+
+let appointments =
+    JSON.parse(localStorage.getItem("familycareAppointments")) || [];
+
+
+/* =========================
+   PAGE FUNCTIONS
+========================= */
+
+function hideAll(){
+    document.getElementById("landingPage").classList.add("hidden");
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("registerPage").classList.add("hidden");
+    document.getElementById("appPage").classList.add("hidden");
+}
+
+function showLanding(){
+    hideAll();
+    document.getElementById("landingPage").classList.remove("hidden");
+}
+
+function showLogin(){
+    hideAll();
+    document.getElementById("loginPage").classList.remove("hidden");
+}
+
+function showRegister(){
+    hideAll();
+    document.getElementById("registerPage").classList.remove("hidden");
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+function register(){
+
+    const name =
+        document.getElementById("regName").value.trim();
+
+    const email =
+        document.getElementById("regEmail").value.trim();
+
+    const mobile =
+        document.getElementById("regMobile").value.trim();
+
+    const password =
+        document.getElementById("regPassword").value;
+
+    const confirm =
+        document.getElementById("regConfirm").value;
+
+    const msg =
+        document.getElementById("registerMessage");
+
+    if(!name || !email || !mobile || !password || !confirm){
+        showMessage(msg,"Please fill all fields.","error");
+        return;
+    }
+
+    if(password.length < 6){
+        showMessage(msg,"Password must contain at least 6 characters.","error");
+        return;
+    }
+
+    if(password !== confirm){
+        showMessage(msg,"Passwords do not match.","error");
+        return;
+    }
+
+    user = {
+        name,
+        email,
+        mobile,
+        password
+    };
+
+    localStorage.setItem("familycareUser",JSON.stringify(user));
+
+    showMessage(
+        msg,
+        "Account created successfully! Redirecting to login...",
+        "success"
+    );
+
+    setTimeout(showLogin,1200);
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+    const loginValue =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const msg =
+        document.getElementById("loginMessage");
+
+    if(!loginValue || !password){
+        showMessage(msg,"Please enter your login details.","error");
+        return;
+    }
+
+    if(!user){
+        showMessage(
+            msg,
+            "No account found. Please create an account first.",
+            "error"
+        );
+        return;
+    }
+
+    if(
+        (loginValue === user.email || loginValue === user.mobile)
+        && password === user.password
+    ){
+        localStorage.setItem("familycareLoggedIn","true");
+        openApp();
+    }
+    else{
+        showMessage(
+            msg,
+            "Invalid email/mobile number or password.",
+            "error"
+        );
+    }
+}
+
+function forgotPassword(){
+    alert("Demo: Password recovery would be connected to an email/SMS service in the final backend version.");
+}
+
+
+/* =========================
+   OPEN APP
+========================= */
+
+function openApp(){
+
+    hideAll();
+
+    document.getElementById("appPage")
+        .classList.remove("hidden");
+
+    updateUserUI();
+
+    navigate("dashboard");
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function navigate(page){
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(p=>p.classList.add("hidden"));
+
+    const selected =
+        document.getElementById(page+"Page");
+
+    if(selected){
+        selected.classList.remove("hidden");
+    }
+
+    const titles = {
+        dashboard:"Dashboard",
+        family:"Family Members",
+        fund:"Health Emergency Fund",
+        assistant:"AI Health Assistant",
+        hospitals:"Hospitals",
+        doctors:"Doctors",
+        appointments:"Appointments",
+        emergency:"Emergency Help",
+        profile:"Profile"
+    };
+
+    document.getElementById("topTitle").textContent =
+        titles[page] || "FamilyCare";
+
+    document.querySelectorAll(".nav-item")
+        .forEach(item=>item.classList.remove("active"));
+
+    event?.target?.classList.add("active");
+
+    if(page==="family") renderMembers();
+    if(page==="fund") renderTransactions();
+    if(page==="hospitals") renderHospitals();
+    if(page==="doctors") renderDoctors();
+    if(page==="appointments") renderAppointments();
+    if(page==="profile") loadProfile();
+
+    document.getElementById("sidebar")
+        .classList.remove("open");
+}
+
+
+/* =========================
+   USER
+========================= */
+
+function updateUserUI(){
+
+    if(!user) return;
+
+    document.getElementById("welcomeName").textContent =
+        user.name;
+
+    document.getElementById("topUserName").textContent =
+        user.name;
+
+    updateCounts();
+}
+
+function loadProfile(){
+
+    if(!user) return;
+
+    document.getElementById("profileName").value =
+        user.name;
+
+    document.getElementById("profileEmail").value =
+        user.email;
+
+    document.getElementById("profileMobile").value =
+        user.mobile;
+}
+
+function saveProfile(){
+
+    user.name =
+        document.getElementById("profileName").value.trim();
+
+    user.email =
+        document.getElementById("profileEmail").value.trim();
+
+    user.mobile =
+        document.getElementById("profileMobile").value.trim();
+
+    localStorage.setItem(
+        "familycareUser",
+        JSON.stringify(user)
+    );
+
+    updateUserUI();
+
+    alert("Profile updated successfully!");
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    localStorage.removeItem("familycareLoggedIn");
+
+    document.getElementById("appPage")
+        .classList.add("hidden");
+
+    showLogin();
+}
+
+
+/* =========================
+   FAMILY
+========================= */
+
+function renderMembers(){
+
+    const grid =
+        document.getElementById("memberGrid");
+
+    grid.innerHTML = "";
+
+    familyMembers.forEach((member,index)=>{
+
+        grid.innerHTML += `
+        <div class="member-card">
+
+            <div class="member-avatar">👤</div>
+
+            <h3>${member.name}</h3>
+
+            <p class="info">Relationship: ${member.relation}</p>
+
+            <p class="info">Age: ${member.age}</p>
+
+            <p class="info">
+                Employment: ${member.employment}
+            </p>
+
+            <div class="action-row">
+
+                <button class="small-btn"
+                    onclick="editMember(${index})">
+                    Edit
+                </button>
+
+                <button class="small-btn delete-btn"
+                    onclick="deleteMember(${index})">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+        `;
+    });
+
+    updateCounts();
+}
+
+function openMemberModal(){
+
+    document.getElementById("memberModalTitle")
+        .textContent = "Add Family Member";
+
+    document.getElementById("editMemberIndex").value = "";
+
+    document.getElementById("memberName").value = "";
+    document.getElementById("memberRelation").value = "";
+    document.getElementById("memberAge").value = "";
+
+    document.getElementById("memberModal")
+        .classList.remove("hidden");
+}
+
+function editMember(index){
+
+    const member =
+        familyMembers[index];
+
+    document.getElementById("memberModalTitle")
+        .textContent = "Edit Family Member";
+
+    document.getElementById("editMemberIndex").value =
+        index;
+
+    document.getElementById("memberName").value =
+        member.name;
+
+    document.getElementById("memberRelation").value =
+        member.relation;
+
+    document.getElementById("memberAge").value =
+        member.age;
+
+    document.getElementById("memberEmployment").value =
+        member.employment;
+
+    document.getElementById("memberModal")
+        .classList.remove("hidden");
+}
+
+function saveMember(){
+
+    const name =
+        document.getElementById("memberName").value.trim();
+
+    const relation =
+        document.getElementById("memberRelation").value.trim();
+
+    const age =
+        document.getElementById("memberAge").value;
+
+    const employment =
+        document.getElementById("memberEmployment").value;
+
+    if(!name || !relation || !age){
+        alert("Please fill all family member details.");
+        return;
+    }
+
+    const index =
+        document.getElementById("editMemberIndex").value;
+
+    const data = {
+        name,
+        relation,
+        age,
+        employment
+    };
+
+    if(index === ""){
+        familyMembers.push(data);
+    }
+    else{
+        familyMembers[index] = data;
+    }
+
+    localStorage.setItem(
+        "familycareMembers",
+        JSON.stringify(familyMembers)
+    );
+
+    closeModal("memberModal");
+
+    renderMembers();
+}
+
+function deleteMember(index){
+
+    if(confirm("Delete this family member?")){
+
+        familyMembers.splice(index,1);
+
+        localStorage.setItem(
+            "familycareMembers",
+            JSON.stringify(familyMembers)
+        );
+
+        renderMembers();
+    }
+}
+
+
+/* =========================
+   FUND
+========================= */
+
+function updateFundUI(){
+
+    document.getElementById("fundValue")
+        .textContent = fund.toLocaleString();
+
+    document.getElementById("dashFund")
+        .textContent = fund.toLocaleString();
+
+    document.getElementById("fundPageValue")
+        .textContent = fund.toLocaleString();
+}
+
+function openFundModal(){
+
+    document.getElementById("fundAmount").value = "";
+
+    document.getElementById("fundModal")
+        .classList.remove("hidden");
+}
+
+function addFund(){
+
+    const amount =
+        Number(document.getElementById("fundAmount").value);
+
+    const method =
+        document.getElementById("paymentMethod").value;
+
+    if(!amount || amount <= 0){
+        alert("Please enter a valid amount.");
+        return;
+    }
+
+    fund += amount;
+
+    localStorage.setItem(
+        "familycareFund",
+        fund
+    );
+
+    transactions.unshift({
+        date:new Date().toLocaleDateString(),
+        amount,
+        method,
+        status:"Successful"
+    });
+
+    localStorage.setItem(
+        "familycareTransactions",
+        JSON.stringify(transactions)
+    );
+
+    updateFundUI();
+    renderTransactions();
+
+    closeModal("fundModal");
+
+    alert(
+        "₹"+amount+
+        " added successfully to the demo Health Fund."
+    );
+}
+
+function renderTransactions(){
+
+    const table =
+        document.getElementById("transactionTable");
+
+    table.innerHTML = "";
+
+    transactions.forEach(t=>{
+
+        table.innerHTML += `
+        <tr>
+            <td>${t.date}</td>
+            <td>₹${Number(t.amount).toLocaleString()}</td>
+            <td>${t.method}</td>
+            <td>✅ ${t.status}</td>
+        </tr>
+        `;
+    });
+}
+
+
+/* =========================
+   NLP
+========================= */
+
+function analyzeSymptoms(){
+
+    const input =
+        document.getElementById("symptomInput")
+        .value
+        .toLowerCase();
+
+    if(!input.trim()){
+        alert("Please describe your symptoms first.");
+        return;
+    }
+
+    let symptoms = [];
+
+    const keywords = {
+        fever:"Fever",
+        headache:"Headache",
+        "body pain":"Body pain",
+        cough:"Cough",
+        cold:"Cold",
+        sorethroat:"Sore throat",
+        "sore throat":"Sore throat",
+        vomiting:"Vomiting",
+        nausea:"Nausea",
+        diarrhea:"Diarrhea",
+        "stomach pain":"Stomach pain",
+        chestpain:"Chest pain",
+        "chest pain":"Chest pain",
+        breathing:"Breathing difficulty",
+        breathlessness:"Breathing difficulty",
+        dizziness:"Dizziness",
+        fatigue:"Fatigue"
+    };
+
+    Object.keys(keywords).forEach(key=>{
+
+        if(input.includes(key)){
+            if(!symptoms.includes(keywords[key])){
+                symptoms.push(keywords[key]);
+            }
+        }
+
+    });
+
+    if(symptoms.length===0){
+
+        symptoms.push("General symptoms");
+
+    }
+
+    let conditions = [
+        "Common viral illness",
+        "Flu-like illness",
+        "Other conditions may require professional evaluation"
+    ];
+
+    let specialist = "General Physician";
+
+    if(
+        input.includes("chest pain") ||
+        input.includes("breathing")
+    ){
+        conditions = [
+            "Multiple causes are possible",
+            "Urgent medical evaluation may be required"
+        ];
+
+        specialist = "Emergency Department / Physician";
+    }
+
+    if(
+        input.includes("stomach pain") ||
+        input.includes("vomiting") ||
+        input.includes("diarrhea")
+    ){
+        conditions = [
+            "Gastrointestinal illness",
+            "Food-related illness",
+            "Other digestive conditions"
+        ];
+
+        specialist = "General Physician / Gastroenterologist";
+    }
+
+    document.getElementById("symptoms").innerHTML =
+        symptoms
+        .map(s=>`<span class="tag">✓ ${s}</span>`)
+        .join("");
+
+    document.getElementById("conditions").innerHTML =
+        conditions
+        .map(c=>`<li>${c}</li>`)
+        .join("");
+
+    document.getElementById("specialist").textContent =
+        specialist;
+
+    document.getElementById("nlpResult")
+        .style.display = "block";
+}
+
+
+/* =========================
+   HOSPITALS
+========================= */
+
+function renderHospitals(){
+
+    const grid =
+        document.getElementById("hospitalGrid");
+
+    grid.innerHTML = "";
+
+    hospitals.forEach((hospital,index)=>{
+
+        grid.innerHTML += `
+        <div class="card hospital-card">
+
+            <div class="hospital-image">🏥</div>
+
+            <h3>${hospital.name}</h3>
+
+            <p class="info">📍 ${hospital.distance} away</p>
+
+            <p class="info">📌 ${hospital.location}</p>
+
+            <p class="info">🏥 ${hospital.department}</p>
+
+            <p class="info">📞 ${hospital.phone}</p>
+
+            <p class="rating">★ ${hospital.rating} (Demo)</p>
+
+            <p class="info">
+                👨‍⚕️ Doctors Available
+            </p>
+
+            <div class="action-row">
+
+                <button class="small-btn"
+                    onclick="viewHospital(${index})">
+                    View Hospital
+                </button>
+
+                <a href="tel:${hospital.phone}">
+                    <button class="small-btn">
+                        📞 Call
+                    </button>
+                </a>
+
+            </div>
+
+            <button class="primary-btn full-btn"
+                    onclick="openAppointmentModal()">
+                📅 Book Appointment
+            </button>
+
+        </div>
+        `;
+    });
+}
+
+function viewHospital(index){
+
+    const h = hospitals[index];
+
+    document.getElementById("hospitalDetails")
+        .innerHTML = `
+
+        <div class="hospital-image">🏥</div>
+
+        <h2>${h.name}</h2>
+
+        <p class="info">📍 ${h.location}</p>
+        <p class="info">📏 ${h.distance}</p>
+        <p class="info">🏥 ${h.department}</p>
+        <p class="info">📞 ${h.phone}</p>
+        <p class="rating">★ ${h.rating} (Demo)</p>
+
+        <h3 style="margin-top:20px">
+            Doctors Available
+        </h3>
+
+        <p class="info">${h.doctors}</p>
+
+        <div class="action-row">
+
+            <a href="tel:${h.phone}">
+                <button class="primary-btn">
+                    📞 Call Hospital
+                </button>
+            </a>
+
+            <button class="secondary-btn"
+                    onclick="openAppointmentModal()">
+                Book Appointment
+            </button>
+
+        </div>
+
+        <button class="secondary-btn"
+                style="margin-top:12px"
+                onclick="alert('Demo map: real map integration can be added later.')">
+            🗺️ View on Map
+        </button>
+        `;
+
+    document.getElementById("hospitalModal")
+        .classList.remove("hidden");
+}
+
+
+/* =========================
+   DOCTORS
+========================= */
+
+function renderDoctors(){
+
+    const grid =
+        document.getElementById("doctorGrid");
+
+    grid.innerHTML = "";
+
+    doctors.forEach((doctor,index)=>{
+
+        grid.innerHTML += `
+        <div class="card doctor-card">
+
+            <div class="doctor-image">👨‍⚕️</div>
+
+            <h3>${doctor.name}</h3>
+
+            <p class="info">
+                <strong>${doctor.specialization}</strong>
+            </p>
+
+            <p class="info">
+                Experience: ${doctor.experience}
+            </p>
+
+            <p class="info">
+                Hospital: ${doctor.hospital}
+            </p>
+
+            <p class="info">
+                Consultation: ${doctor.fee}
+            </p>
+
+            <p class="info">
+                Available: ${doctor.days}
+            </p>
+
+            <p class="info">
+                Time: ${doctor.slots}
+            </p>
+
+            <button class="primary-btn full-btn"
+                    onclick="viewDoctor(${index})">
+                View Details
+            </button>
+
+        </div>
+        `;
+    });
+}
+
+function viewDoctor(index){
+
+    const d = doctors[index];
+
+    document.getElementById("hospitalDetails")
+        .innerHTML = `
+
+        <div class="doctor-image">👨‍⚕️</div>
+
+        <h2>${d.name}</h2>
+
+        <p class="info">
+            <strong>Specialization:</strong>
+            ${d.specialization}
+        </p>
+
+        <p class="info">
+            <strong>Experience:</strong>
+            ${d.experience}
+        </p>
+
+        <p class="info">
+            <strong>Qualifications:</strong>
+            ${d.qualification}
+        </p>
+
+        <p class="info">
+            <strong>Hospital:</strong>
+            ${d.hospital}
+        </p>
+
+        <p class="info">
+            <strong>Consultation Fee:</strong>
+            ${d.fee}
+        </p>
+
+        <p class="info">
+            <strong>Available Days:</strong>
+            ${d.days}
+        </p>
+
+        <p class="info">
+            <strong>Time Slots:</strong>
+            ${d.slots}
+        </p>
+
+        <h3 style="margin-top:20px">About Doctor</h3>
+
+        <p class="small-text"
+           style="line-height:1.7">
+            ${d.about}
+        </p>
+
+        <div style="background:#fff5d9;padding:12px;border-radius:10px;margin-top:15px">
+            All doctor information displayed here is demo data
+            for the college project prototype.
+        </div>
+
+        <div class="action-row">
+
+            <a href="tel:9876543210">
+                <button class="primary-btn">
+                    📞 Call Hospital
+                </button>
+            </a>
+
+            <button class="secondary-btn"
+                    onclick="openAppointmentModal()">
+                📅 Book Appointment
+            </button>
+
+        </div>
+        `;
+
+    document.getElementById("hospitalModal")
+        .classList.remove("hidden");
+}
+
+
+/* =========================
+   APPOINTMENTS
+========================= */
+
+function openAppointmentModal(){
+
+    document.getElementById("appointmentModal")
+        .classList.remove("hidden");
+}
+
+function confirmAppointment(){
+
+    const hospital =
+        document.getElementById("appointmentHospital")
+        .value;
+
+    const doctor =
+        document.getElementById("appointmentDoctor")
+        .value;
+
+    const date =
+        document.getElementById("appointmentDate")
+        .value;
+
+    const time =
+        document.getElementById("appointmentTime")
+        .value;
+
+    if(!date){
+        alert("Please select an appointment date.");
+        return;
+    }
+
+    const id =
+        "FC-" +
+        Math.floor(100000 + Math.random()*900000);
+
+    appointments.push({
+        doctor,
+        hospital,
+        date,
+        time,
+        id
+    });
+
+    localStorage.setItem(
+        "familycareAppointments",
+        JSON.stringify(appointments)
+    );
+
+    closeModal("appointmentModal");
+
+    renderAppointments();
+
+    updateCounts();
+
+    alert(
+        "✅ Appointment booked successfully!\n\n"+
+        "Doctor: "+doctor+
+        "\nHospital: "+hospital+
+        "\nDate: "+date+
+        "\nTime: "+time+
+        "\nAppointment ID: "+id
+    );
+}
+
+function renderAppointments(){
+
+    const table =
+        document.getElementById("appointmentTable");
+
+    table.innerHTML = "";
+
+    if(appointments.length===0){
+
+        table.innerHTML = `
+        <tr>
+            <td colspan="5">
+                No appointments booked yet.
+            </td>
+        </tr>
+        `;
+
+        return;
+    }
+
+    appointments.forEach(a=>{
+
+        table.innerHTML += `
+        <tr>
+            <td>${a.doctor}</td>
+            <td>${a.hospital}</td>
+            <td>${a.date}</td>
+            <td>${a.time}</td>
+            <td>${a.id}</td>
+        </tr>
+        `;
+    });
+}
+
+
+/* =========================
+   UTILITIES
+========================= */
+
+function updateCounts(){
+
+    document.getElementById("familyCount")
+        .textContent = familyMembers.length;
+
+    document.getElementById("appointmentCount")
+        .textContent = appointments.length;
+
+    updateFundUI();
+}
+
+function closeModal(id){
+
+    document.getElementById(id)
+        .classList.add("hidden");
+}
+
+function showMessage(element,text,type){
+
+    element.style.display = "block";
+
+    element.textContent = text;
+
+    if(type==="error"){
+        element.style.background = "#ffe8e8";
+        element.style.color = "#b42318";
+    }
+    else{
+        element.style.background = "#e4f8ed";
+        element.style.color = "#16794c";
+    }
+}
+
+function toggleSidebar(){
+
+    document.getElementById("sidebar")
+        .classList.toggle("open");
+}
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+renderHospitals();
+renderDoctors();
+renderAppointments();
+renderMembers();
+renderTransactions();
+updateFundUI();
+
+if(
+    localStorage.getItem("familycareLoggedIn")==="true"
+    && user
+){
+    openApp();
+}
+else{
+    showLanding();
+}
+
+</script>
+
+</body>
+</html>
